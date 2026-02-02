@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💌</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        touch-action: manipulation;
+    }
+
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        overflow: hidden;
+        font-family: -apple-system, BlinkMacSystemFont, "Comic Sans MS", cursive;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+        background: rgba(255,255,255,0.9);
+        padding: 30px 20px;
+        border-radius: 25px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        font-size: 1.8em;
+        color: #e6005c;
+        line-height: 1.3;
+    }
+
+    .buttons {
+        margin-top: 30px;
+        position: relative;
+        height: 140px;
+    }
+
+    button {
+        font-size: 1.3em;
+        padding: 14px 30px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        width: 140px;
+    }
+
+    #yes {
+        background: #ff4d88;
+        color: white;
+    }
+
+    #no {
+        background: #ddd;
+        color: #444;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 70px;
+    }
+
+    .shy {
+        margin-top: 15px;
+        font-size: 0.9em;
+        color: #666;
+    }
+
+    /* YES SCREEN */
+    .yes-screen {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(135deg, #ff6a88, #ff99ac);
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: white;
+        font-size: 3em;
+        text-align: center;
+    }
+
+    .heart {
+        position: absolute;
+        bottom: -20px;
+        animation: float 6s linear infinite;
+        pointer-events: none;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0) scale(0.5); opacity: 0; }
+        20% { opacity: 1; }
+        100% { transform: translateY(-120vh) scale(1.3); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container" id="main">
+    <h1>Sivan 💖<br>Will you be my Valentine? 💌</h1>
+
+    <div class="buttons">
+        <button id="yes">Yes 💘</button>
+        <button id="no">No 🙈</button>
+    </div>
+
+    <div class="shy">The "No" is shy 😳</div>
+</div>
+
+<div class="yes-screen" id="yesScreen">
+    YES! ❤️
+</div>
+
+<script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const main = document.getElementById("main");
+    const yesScreen = document.getElementById("yesScreen");
+
+    // NO button jumps on touch
+    function moveNo() {
+        const maxX = window.innerWidth - noBtn.offsetWidth;
+        const maxY = window.innerHeight - noBtn.offsetHeight;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+    }
+
+    noBtn.addEventListener("touchstart", moveNo);
+    noBtn.addEventListener("click", moveNo);
+
+    yesBtn.addEventListener("click", () => {
+        main.style.display = "none";
+        yesScreen.style.display = "flex";
+
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (18 + Math.random() * 32) + "px";
+            heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+            yesScreen.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 7000);
+        }, 250);
+    });
+</script>
+
+</body>
+</html>
+
